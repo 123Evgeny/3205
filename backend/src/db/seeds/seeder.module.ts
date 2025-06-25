@@ -10,4 +10,4 @@ import { UrlSeederService } from './url.seeder';
   imports: [AppModule, TypeOrmModule.forFeature([Url, Analytics])],
   providers: [UrlSeederService, UrlService],
 })
-export class SeederModule {} 
+export class SeederModule {}

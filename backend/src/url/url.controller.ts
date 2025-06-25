@@ -1,4 +1,15 @@
-import { Controller, Post, Body, Get, Param, Delete, Res, Ip, NotFoundException, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Delete,
+  Res,
+  Ip,
+  NotFoundException,
+  HttpCode,
+} from '@nestjs/common';
 import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/create-url.dto';
 

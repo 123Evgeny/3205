@@ -22,11 +22,10 @@ import {
   AlertDialogFooter,
 } from "@chakra-ui/react";
 import "./App.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { HistoryTable } from "./components/HistoryTable";
 import axios from "axios";
-
-const API_URL = "http://localhost:3000";
+import { API_URL } from "./config";
 
 interface HistoryItem {
   id: number;
@@ -54,9 +53,9 @@ function App() {
   const [urlToDelete, setUrlToDelete] = useState<string | null>(null);
   const cancelRef = useRef(null);
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:3000/");
+      const response = await axios.get(`${API_URL}/`);
       const formattedHistory = response.data.map((item: HistoryItem) => ({
         ...item,
         createdAt: new Date(item.createdAt).toLocaleString(),
@@ -75,11 +74,11 @@ function App() {
         isClosable: true,
       });
     }
-  };
+  }, [toast]);
 
   useEffect(() => {
     fetchHistory();
-  }, []);
+  }, [fetchHistory]);
 
   const addUrlToHistory = () => {
     fetchHistory();

@@ -20,4 +20,4 @@ export class Analytics {
 
   @ManyToOne(() => Url, (url) => url.id, { onDelete: 'CASCADE' })
   url: Url;
-} 
+}

@@ -13,7 +13,9 @@ export class UrlSeederService {
   ) {}
 
   async seed() {
-    const googleUrl = await this.urlRepository.findOne({ where: { alias: 'google' } });
+    const googleUrl = await this.urlRepository.findOne({
+      where: { alias: 'google' },
+    });
     if (!googleUrl) {
       console.log('Seeding google.com...');
       await this.urlService.create({
@@ -34,4 +36,4 @@ export class UrlSeederService {
 
     console.log('Seeding completed!');
   }
-} 
+}

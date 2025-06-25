@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import {
   Box,
   Button,
@@ -12,10 +12,8 @@ import {
   Alert,
   AlertIcon,
   useClipboard,
-  HStack,
 } from "@chakra-ui/react";
-
-const API_URL = "http://localhost:3000"; // Наш бэкенд
+import { API_URL } from "../config";
 
 interface ShortenResponse {
   shortUrl: string;
@@ -51,12 +49,13 @@ export const UrlShortenerForm: React.FC<UrlShortenerFormProps> = ({
       const fullUrl = `${API_URL}/${response.data.shortUrl}`;
       setShortenedUrl(fullUrl);
       onNewUrl(response.data.shortUrl);
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message[0] ||
-          err.response?.data?.message ||
-          "Произошла ошибка."
-      );
+    } catch (err) {
+      let message = "Произошла ошибка.";
+      if (isAxiosError(err) && err.response?.data?.message) {
+        const errMessage = err.response.data.message;
+        message = Array.isArray(errMessage) ? errMessage[0] : errMessage;
+      }
+      setError(message);
     } finally {
       setIsLoading(false);
     }

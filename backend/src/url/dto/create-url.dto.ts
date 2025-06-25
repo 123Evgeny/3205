@@ -1,4 +1,10 @@
-import { IsUrl, IsOptional, IsString, MaxLength, IsDateString } from 'class-validator';
+import {
+  IsUrl,
+  IsOptional,
+  IsString,
+  MaxLength,
+  IsDateString,
+} from 'class-validator';
 
 export class CreateUrlDto {
   @IsUrl()

@@ -30,4 +30,4 @@ export class Url {
 
   @Column({ default: 0 })
   clickCount: number;
-} 
+}

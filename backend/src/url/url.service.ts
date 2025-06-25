@@ -96,7 +96,7 @@ export class UrlService {
 
     return {
       clickCount: url.clickCount,
-      ipAddresses,
+      lastFiveIps: ipAddresses,
     };
   }
 }

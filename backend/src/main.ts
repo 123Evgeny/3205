@@ -4,10 +4,12 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true, // Отсекать поля, которых нет в DTO
-    transform: true, // Автоматически преобразовывать типы
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // Отсекать поля, которых нет в DTO
+      transform: true, // Автоматически преобразовывать типы
+    }),
+  );
   app.enableCors();
   await app.listen(process.env.PORT ?? 3000);
 }
