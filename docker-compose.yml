@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:15
+    container_name: url_shortener_db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: shortener_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: url_shortener_backend
+    restart: on-failure
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://user:password@db:5432/shortener_db?schema=public
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: url_shortener_frontend
+    restart: on-failure
+    ports:
+      - "5173:5173"
+
+volumes:
+  postgres_data:
